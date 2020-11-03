@@ -43,10 +43,15 @@ function JSON2CSV(objArray) {
 }
         
 $("#convert").click(function() {
-    console.log("convert button clicked...")
-    var json = $.parseJSON($("#json").val());
-    var csv = JSON2CSV(json);
-    $("#csv").val(csv);
+    try {
+        var json = $.parseJSON($("#json").val());
+        var csv = JSON2CSV(json);
+        $("#csv").val(csv);
+    } catch (error) {
+        $('#modal-error').text(error.message);
+        $('#myModal').show();
+    }
+    
 });
 
 $("#clear").click(function() {
@@ -59,3 +64,16 @@ $("#download").click(function() {
     var csv = JSON2CSV(json);
     window.open("data:text/csv;charset=utf-8," + escape(csv))
 });
+
+
+$("#close").click(function() {
+    closeModal();
+});
+
+$(".close").click(function() {
+    closeModal();
+});
+
+function closeModal(){
+    $('#myModal').hide();
+};
